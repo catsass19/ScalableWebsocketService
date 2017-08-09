@@ -31,7 +31,6 @@ export default {
     }
     .chatContent {
         flex: 1;
-        border: 1px solid #CCC;
         overflow-y: auto;
     }
     .inputArea {

@@ -13,6 +13,22 @@ Vue.use(VueMaterial);
 
 store.commit('setUserId', shortid.generate());
 
+const wsURL = `ws://${window.location.host}`;
+console.log(`Establishing WS connection with ${wsURL}`);
+const ws = new WebSocket(wsURL);
+
+ws.onopen = () => {
+    ws.send('ping');
+};
+
+ws.onmessage = (e) => {
+    console.log(e.data);
+};
+
+ws.onclose = () => {
+    console.log('ws closed. time to reconnect again');
+};
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
