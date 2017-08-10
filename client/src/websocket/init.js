@@ -3,11 +3,11 @@ import store from '../store/store';
 let ws = null;
 
 export function initWebSocket() {
-    // const wsURL = `ws://${window.location.host}`;
-    const wsURL = 'ws://localhost:3001';
+    const wsURL = `ws://${window.location.host}/ws`;
     ws = new WebSocket(wsURL);
 
     ws.onopen = () => {
+        console.log(`Connected to ${wsURL}`);
         ws.send(JSON.stringify({
             type: 'JOIN',
             userId: store.getters.getUserId,
