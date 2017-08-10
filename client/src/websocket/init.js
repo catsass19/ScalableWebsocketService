@@ -15,10 +15,19 @@ export function initWebSocket() {
     };
 
     ws.onmessage = (e) => {
-        console.log(e.data);
+        const data = JSON.parse(e.data);
+        switch (data.type) {
+        case 'CONFIRM':
+            store.commit('setServerId', data.serverId);
+            break;
+        default:
+            console.log(data);
+            break;
+        }
     };
 
     ws.onclose = () => {
+        store.commit('setServerId', null);
         ws.send(JSON.stringify({
             type: 'LEAVE',
             userId: store.getters.getUserId,

@@ -1,7 +1,10 @@
 <template>
     <div id="app">
         <div class="header">
-            UserID: <b>{{userId}}</b>
+            <span>User ID: <b>{{userId}}</b></span>
+            <div class="headerPadding"></div>
+            <span v-if="serverId !== null">Websocket Server ID: <b>{{serverId}}</b></span>
+            <span v-else class="noWS"><b>No WebSocket Connection</b></span>
         </div>
         <!-- img src="./assets/logo.png" -->
 
@@ -30,6 +33,9 @@ export default {
         userId() {
             return this.$store.getters.getUserId;
         },
+        serverId() {
+            return this.$store.getters.getServerId;
+        },
     },
 };
 </script>
@@ -51,10 +57,17 @@ export default {
     .content {
         flex: 1;
     }
+    .noWS {
+        color: #FFC1CC;
+    }
     .header {
         padding: 5px;
         background-color: #1995AD;
         color: white;
+        display: flex;
+    }
+    .headerPadding {
+        flex: 1;
     }
     .footer {
         text-align: center;
