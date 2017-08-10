@@ -1,10 +1,10 @@
 import store from '../store/store';
 
-// let ws = null;
+let ws = null;
 
 export function initWebSocket() {
-    /*
-    const wsURL = `ws://${window.location.host}`;
+    // const wsURL = `ws://${window.location.host}`;
+    const wsURL = 'ws://localhost:3001';
     ws = new WebSocket(wsURL);
 
     ws.onopen = () => {
@@ -15,7 +15,7 @@ export function initWebSocket() {
     };
 
     ws.onmessage = (e) => {
-        console.log(JSON.parse(e.data));
+        console.log(e.data);
     };
 
     ws.onclose = () => {
@@ -24,10 +24,8 @@ export function initWebSocket() {
             userId: store.getters.getUserId,
         }));
     };
-    */
 }
-/*
+
 export function getWS() {
     return ws;
 }
-*/
