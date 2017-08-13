@@ -1,9 +1,9 @@
 import store from '../store/store';
 
 let ws = null;
+const wsURL = `ws://${window.location.host}/ws`;
 
 export function initWebSocket() {
-    const wsURL = `ws://${window.location.host}/ws`;
     ws = new WebSocket(wsURL);
 
     ws.onopen = () => {
@@ -20,6 +20,9 @@ export function initWebSocket() {
         case 'CONFIRM':
             store.commit('setServerId', data.serverId);
             break;
+        case 'MESSAGE':
+            store.commit('pushMessage', data);
+            break;
         default:
             console.log(data);
             break;
@@ -32,9 +35,14 @@ export function initWebSocket() {
             type: 'LEAVE',
             userId: store.getters.getUserId,
         }));
+        setTimeout(initWebSocket, 1000);
     };
 }
 
-export function getWS() {
-    return ws;
+export function sendMessage(message) {
+    ws.send(JSON.stringify({
+        type: 'MESSAGE',
+        userId: store.getters.getUserId,
+        message,
+    }));
 }
